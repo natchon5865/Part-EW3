@@ -59,6 +59,13 @@ function App() {
 
   // เพิ่ม / แก้ไข
   const addPart = () => {
+    if (
+      id === "" &&
+      name === "" &&
+      qty === "" &&
+      location === "" &&
+    )
+      return;
 
     if (editId) {
       const updated = parts.map((part: any) =>

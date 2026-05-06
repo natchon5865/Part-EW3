@@ -31,7 +31,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [system, setSystem] = useState("ELINT/COMINT");
   const [status, setStatus] = useState("พร้อมใช้");
-  const [search, setSearch] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [editId, setEditId] = useState("");
 
   // Dashboard
@@ -244,8 +244,9 @@ function App() {
         <input
           type="text"
           placeholder="🔍 ค้นหาชื่ออะไหล่ หรือ ระบบ..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchText}
+          onChange={(e) => {setSearchText(e.target.value);
+          }}
           style={{
             ...inputStyle,
             width: "350px",
@@ -380,8 +381,8 @@ function App() {
 <tbody>
   {parts
     .filter((part: any) => {
-      if (search.trim() === "") return true;
-      const text = search.toLowerCase().trim();
+      const text = searchText.toLowerCase().trim();
+      if (!text) return true;
 
       return (
         part.name.toLowerCase().includes(text) ||

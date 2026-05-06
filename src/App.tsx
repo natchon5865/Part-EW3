@@ -373,15 +373,14 @@ function App() {
 
         <tbody>
           {parts
-            .filter(
-              (part: any) =>
-                part.name
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) ||
-                part.system
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
-            )
+.filter((part: any) => {
+  const text = search.toLowerCase();
+
+  return (
+    part.name.toLowerCase().includes(text) ||
+    part.system.toLowerCase() === text
+  );
+})
             .map((part: any) => (
               <tr
                 key={part.id}

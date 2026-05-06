@@ -1,21 +1,23 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [parts, setParts] = useState<any[]>([]); => {
-    const saved = localStoarage.getItem("parts");
+  const [parts, setParts] = useState<any[]>(() => {
+    const saved = localStorage.getItem("parts");
     return saved ? JSON.parse(saved) : [];
-  }];
+  });
 
+  const [search, setSearch] = useState("");
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [qty, setQty] = useState("");
   const [location, setLocation] = useState("");
   const [system, setSystem] = useState("ELINT/COMINT");
   const [status, setStatus] = useState("พร้อมใช้");
-  const [search, setSearch] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
+
   useEffect(() => {
-    localStorage.setItem("part", JSON.stringify(parts)}, [parts]);
+    localStorage.setItem("parts", JSON.stringify(parts));
+  }, [parts]);
 
   // เพิ่ม / แก้ไข
   const addPart = () => {

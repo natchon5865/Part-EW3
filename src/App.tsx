@@ -58,54 +58,54 @@ function App() {
   };
 
   // เพิ่ม / แก้ไข
-  const addPart = () => {
-    if (
-      id === "" &&
-      name === "" &&
-      qty === "" &&
-      location === "" &&
-    )
-      return;
+ const addPart = () => {
+  if (
+    id === "" &&
+    name === "" &&
+    qty === "" &&
+    location === ""
+  ) {
+    return;
   }
 
-    if (editId) {
-      const updated = parts.map((part: any) =>
-        part.id === editId
-          ? {
-              id,
-              name,
-              qty: Number(qty),
-              location,
-              system,
-              status,
-            }
-          : part
-      );
+  if (editId) {
+    const updated = parts.map((part: any) =>
+      part.id === editId
+        ? {
+            id,
+            name,
+            qty: Number(qty),
+            location,
+            system,
+            status,
+          }
+        : part
+    );
 
-      setParts(updated);
+    setParts(updated);
 
-      setEditId("");
-    } else {
-      const newPart = {
-        id,
-        name,
-        qty: Number(qty),
-        location,
-        system,
-        status,
-      };
+    setEditId("");
+  } else {
+    const newPart = {
+      id,
+      name,
+      qty: Number(qty),
+      location,
+      system,
+      status,
+    };
 
-      setParts([...parts, newPart]);
-    }
+    setParts([...parts, newPart]);
+  }
 
-    setId("");
-    setName("");
-    setQty("");
-    setLocation("");
-    setSystem("ELINT/COMINT");
-    setStatus("พร้อมใช้");
-    setSearch("");
-  };
+  setId("");
+  setName("");
+  setQty("");
+  setLocation("");
+  setSystem("ELINT/COMINT");
+  setStatus("พร้อมใช้");
+  setSearch("");
+};
 
   // โหลดข้อมูลมาแก้ไข
   const editPart = (part: any) => {

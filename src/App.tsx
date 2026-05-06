@@ -241,6 +241,8 @@ function App() {
           textAlign: "center",
 
           color: "#111827",
+          fontSize : "40px",
+          fontWeigt : "bold",
 
         }}
 
@@ -258,11 +260,11 @@ function App() {
 
           display: "flex",
 
-          gap: "16px",
+          gap: "20px",
 
           flexWrap: "wrap",
 
-          marginBottom: "16px",
+          marginBottom: "20px",
 
         }}
 

@@ -19,7 +19,7 @@ function App() {
   const [system, setSystem] = useState("ELINT/COMINT");
   const [status, setStatus] = useState("พร้อมใช้");
   const [search, setSearch] = useState("");
-  const [editId, setEditId] = useState<string | null>(null);
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
   // เพิ่ม / แก้ไข
   const addPart = () => {
@@ -32,13 +32,11 @@ function App() {
       status,
     };
 
-    if (editId) {
-      const updated = parts.map((part) =>
-        part.id === editId ? newPart : part
-      );
-
+    if (editIndex !== null) {
+      const updated = [...parts];
+      updated[editIndex] = newPart;
       setParts(updated);
-      setEditId(null);
+      setEditIndex(null);
     } else {
       setParts([...parts, newPart]);
     }
@@ -53,12 +51,12 @@ function App() {
   };
 
   // ลบ
-  const deletePart = (id: string) => {
-    setParts(parts.filter((part) => part.id !== id));
+  const deletePart = (indexToDelete: number) => {
+    setParts(parts.filter((_, index) => index !== indexToDelete));
   };
 
   // แก้ไข
-  const editPart = (part: any) => {
+  const editPart = (part: any, index: number) => {
     setId(part.id);
     setName(part.name);
     setQty(part.qty.toString());
@@ -66,7 +64,7 @@ function App() {
     setSystem(part.system);
     setStatus(part.status);
 
-    setEditId(part.id);
+    setEditIndex(index);
   };
 
   // ค้นหา
@@ -74,9 +72,9 @@ function App() {
     const text = search.toLowerCase();
 
     return (
+      part.id?.toLowerCase().includes(text) ||
       part.name?.toLowerCase().includes(text) ||
-      part.system?.toLowerCase().includes(text) ||
-      part.id?.toLowerCase().includes(text)
+      part.system?.toLowerCase().includes(text)
     );
   });
 
@@ -113,9 +111,11 @@ function App() {
       <h1
         style={{
           textAlign: "center",
-          fontSize: "44px",
+          fontSize: "46px",
           marginBottom: "25px",
           fontWeight: "700",
+          color: "#111827",
+          textShadow: "0px 1px 1px rgba(0,0,0,0.1)",
         }}
       >
         📦 ระบบจัดเก็บอะไหล่ห้องซ่อม
@@ -130,10 +130,11 @@ function App() {
           marginBottom: "30px",
         }}
       >
+        {/* ทั้งหมด */}
         <div
           style={{
             background: "white",
-            borderRadius: "16px",
+            borderRadius: "18px",
             padding: "20px",
             textAlign: "center",
           }}
@@ -144,17 +145,17 @@ function App() {
             style={{
               fontSize: "58px",
               color: "#111827",
-              marginTop: "10px",
             }}
           >
             {total}
           </h1>
         </div>
 
+        {/* ใกล้หมด */}
         <div
           style={{
             background: "white",
-            borderRadius: "16px",
+            borderRadius: "18px",
             padding: "20px",
             textAlign: "center",
           }}
@@ -165,17 +166,17 @@ function App() {
             style={{
               fontSize: "58px",
               color: "#f59e0b",
-              marginTop: "10px",
             }}
           >
             {low}
           </h1>
         </div>
 
+        {/* หมด */}
         <div
           style={{
             background: "white",
-            borderRadius: "16px",
+            borderRadius: "18px",
             padding: "20px",
             textAlign: "center",
           }}
@@ -186,17 +187,17 @@ function App() {
             style={{
               fontSize: "58px",
               color: "#dc2626",
-              marginTop: "10px",
             }}
           >
             {empty}
           </h1>
         </div>
 
+        {/* พร้อมใช้ */}
         <div
           style={{
             background: "white",
-            borderRadius: "16px",
+            borderRadius: "18px",
             padding: "20px",
             textAlign: "center",
           }}
@@ -207,7 +208,6 @@ function App() {
             style={{
               fontSize: "58px",
               color: "#16a34a",
-              marginTop: "10px",
             }}
           >
             {ready}
@@ -248,6 +248,9 @@ function App() {
             textAlign: "center",
             marginBottom: "25px",
             fontSize: "34px",
+            color: "#111827",
+            fontWeight: "700",
+            textShadow: "0px 1px 1px rgba(0,0,0,0.1)",
           }}
         >
           ➕ เพิ่มอะไหล่
@@ -257,11 +260,12 @@ function App() {
           style={{
             display: "grid",
             gridTemplateColumns:
-              "120px 160px 100px 150px 180px 130px 90px",
-            gap: "12px",
+              "120px 160px 100px 150px 180px 120px 90px",
+            gap: "10px",
             alignItems: "center",
           }}
         >
+          {/* P/N */}
           <input
             placeholder="P/N,S/N"
             value={id}
@@ -269,6 +273,7 @@ function App() {
             style={inputStyle}
           />
 
+          {/* ชื่อ */}
           <input
             placeholder="ชื่ออะไหล่"
             value={name}
@@ -276,6 +281,7 @@ function App() {
             style={inputStyle}
           />
 
+          {/* จำนวน */}
           <input
             placeholder="จำนวน"
             value={qty}
@@ -283,6 +289,7 @@ function App() {
             style={inputStyle}
           />
 
+          {/* ตำแหน่ง */}
           <input
             placeholder="ตำแหน่ง"
             value={location}
@@ -290,6 +297,7 @@ function App() {
             style={inputStyle}
           />
 
+          {/* ระบบ */}
           <select
             value={system}
             onChange={(e) => setSystem(e.target.value)}
@@ -302,6 +310,7 @@ function App() {
             <option>Red Sky II</option>
           </select>
 
+          {/* สถานะ */}
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -312,6 +321,7 @@ function App() {
             <option>หมด</option>
           </select>
 
+          {/* ปุ่ม */}
           <button
             onClick={addPart}
             style={{
@@ -324,7 +334,7 @@ function App() {
               cursor: "pointer",
             }}
           >
-            {editId ? "บันทึก" : "เพิ่ม"}
+            {editIndex !== null ? "บันทึก" : "เพิ่ม"}
           </button>
         </div>
       </div>
@@ -367,8 +377,8 @@ function App() {
                 style={{
                   textAlign: "center",
                   borderBottom: "1px solid #e2e8f0",
-                  fontWeight: "600",
                   color: "#111827",
+                  fontWeight: "600",
                 }}
               >
                 <td style={{ padding: "14px" }}>{part.id}</td>
@@ -402,23 +412,39 @@ function App() {
                 </td>
 
                 <td>
+
                   <button
-                    onClick={() => editPart(part)}
+
+                    onClick={() => editPart(part, index)}
+
                     style={{
+
                       background: "#2563eb",
+
                       color: "white",
+
                       border: "none",
+
                       padding: "8px 12px",
+
                       borderRadius: "8px",
+
                       marginRight: "8px",
+
                       cursor: "pointer",
+
                     }}
+
                   >
+
                     แก้ไข
+
                   </button>
 
                   <button
-                    onClick={() => deletePart(part.id)}
+
+                    onClick={() => deletePart(index)}
+
                     style={{
 
                       background: "#dc2626",

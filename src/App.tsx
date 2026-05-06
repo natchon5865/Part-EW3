@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect,useState } from "react";
 
 function App() {
-  const [parts, setParts] = useState<any[]>([]);
+  const [parts, setParts] = useState<any[]>([]); => {
+    const saved = localStoarage.getItem("parts");
+    return saved ? JSON.parse(saved) : [];
+  }];
 
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -11,6 +14,8 @@ function App() {
   const [status, setStatus] = useState("พร้อมใช้");
   const [search, setSearch] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
+  useEffect(() => {
+    localStorage.setItem("part", JSON.stringify(parts)}, [parts]);
 
   // เพิ่ม / แก้ไข
   const addPart = () => {

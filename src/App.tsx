@@ -258,11 +258,11 @@ function App() {
 
           display: "flex",
 
-          gap: "20px",
+          gap: "16px",
 
           flexWrap: "wrap",
 
-          marginBottom: "20px",
+          marginBottom: "16px",
 
         }}
 

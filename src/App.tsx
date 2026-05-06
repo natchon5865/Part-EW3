@@ -236,12 +236,12 @@ function App() {
       >
         <input
           type="text"
-          placeholder="🔍 ค้นหาอะไหล่..."
+          placeholder="🔍 ค้นหาชื่ออะไหล่ หรือ ระบบ..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{
             ...inputStyle,
-            width: "300px",
+            width: "350px",
           }}
         />
       </div>
@@ -311,6 +311,8 @@ function App() {
             <option>ELINT/COMINT</option>
             <option>PRAKARN</option>
             <option>Perimaster</option>
+            <option>EW3</option>
+            <option>Red Sky II</option>
           </select>
 
           {/* สถานะ */}
@@ -371,8 +373,14 @@ function App() {
 
         <tbody>
           {parts
-            .filter((part: any) =>
-              part.name.toLowerCase().includes(search.toLowerCase())
+            .filter(
+              (part: any) =>
+                part.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                part.system
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
             )
             .map((part: any) => (
               <tr
@@ -415,18 +423,27 @@ function App() {
                       padding: "6px 12px",
                       borderRadius: "20px",
                       fontSize: "14px",
-                    }}
+                                          }}
+
                   >
+
                     {part.status}
+
                   </span>
+
                 </td>
 
                 <td
+
                   style={{
+
                     textAlign: "center",
+
                   }}
+
                 >
-                                    <button
+
+                  <button
 
                     onClick={() => editPart(part)}
 
@@ -497,4 +514,4 @@ function App() {
 }
 
 export default App;
-                  
+                      

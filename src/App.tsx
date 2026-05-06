@@ -59,15 +59,7 @@ const inputStyle = {
 };
 
   // เพิ่มข้อมูล
-  const _addPart = () => {
-    if (
-      id === "" &&
-      name === "" &&
-      qty === "" &&
-      location === ""
-    ) {
-      return;
-    }
+  const addPart = () => {
 
     if (editId) {
       const updated = parts.map((part: any) =>

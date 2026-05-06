@@ -1,16 +1,7 @@
 import { useState } from "react";
 
 function App() {
-  const [parts, setParts] = useState<any[]>([
-    {
-      id: "P001",
-      name: "Battery",
-      qty: 12,
-      location: "ชั้น A1",
-      system: "ELINT/COMINT",
-      status: "พร้อมใช้",
-    },
-  ]);
+  const [parts, setParts] = useState<any[]>([]);
 
   const [id, setId] = useState("");
   const [name, setName] = useState("");

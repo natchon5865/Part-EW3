@@ -370,139 +370,100 @@ function App() {
             <th>จัดการ</th>
           </tr>
         </thead>
+<tbody>
+  {parts
+    .filter((part: any) => {
+      const text = search.toLowerCase();
 
-        <tbody>
-          {parts
-.filter((part: any) => {
-  const text = search.toLowerCase();
+      return (
+        part.name.toLowerCase().includes(text) ||
+        part.system.toLowerCase() === text
+      );
+    })
+    .map((part: any) => (
+      <tr
+        key={part.id}
+        style={{
+          borderBottom: "1px solid #e2e8f0",
+          color: "#111827",
+        }}
+      >
+        <td
+          style={{
+            padding: "14px",
+            textAlign: "center",
+          }}
+        >
+          {part.id}
+        </td>
 
-  return (
-    part.name.toLowerCase().includes(text) ||
-    part.system.toLowerCase() === text
-  );
-})
-            .map((part: any) => (
-              <tr
-                key={part.id}
-                style={{
-                  borderBottom: "1px solid #e2e8f0",
-                  color: "#111827",
-                }}
-              >
-                <td
-                  style={{
-                    padding: "14px",
-                    textAlign: "center",
-                  }}
-                >
-                  {part.id}
-                </td>
+        <td style={{ textAlign: "center" }}>
+          {part.name}
+        </td>
 
-                <td style={{ textAlign: "center" }}>
-                  {part.name}
-                </td>
+        <td style={{ textAlign: "center" }}>
+          {part.qty}
+        </td>
 
-                <td style={{ textAlign: "center" }}>
-                  {part.qty}
-                </td>
+        <td style={{ textAlign: "center" }}>
+          {part.location}
+        </td>
 
-                <td style={{ textAlign: "center" }}>
-                  {part.location}
-                </td>
+        <td style={{ textAlign: "center" }}>
+          {part.system}
+        </td>
 
-                <td style={{ textAlign: "center" }}>
-                  {part.system}
-                </td>
+        <td style={{ textAlign: "center" }}>
+          <span
+            style={{
+              background: getStatusColor(part.status),
+              color: "white",
+              padding: "6px 12px",
+              borderRadius: "20px",
+              fontSize: "14px",
+            }}
+          >
+            {part.status}
+          </span>
+        </td>
 
-                <td style={{ textAlign: "center" }}>
-                  <span
-                    style={{
-                      background: getStatusColor(part.status),
-                      color: "white",
-                      padding: "6px 12px",
-                      borderRadius: "20px",
-                      fontSize: "14px",
-                                          }}
+        <td
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <button
+            onClick={() => editPart(part)}
+            style={{
+              background: "#2563eb",
+              color: "white",
+              border: "none",
+              padding: "8px 12px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              marginRight: "10px",
+            }}
+          >
+            แก้ไข
+          </button>
 
-                  >
-
-                    {part.status}
-
-                  </span>
-
-                </td>
-
-                <td
-
-                  style={{
-
-                    textAlign: "center",
-
-                  }}
-
-                >
-
-                  <button
-
-                    onClick={() => editPart(part)}
-
-                    style={{
-
-                      background: "#2563eb",
-
-                      color: "white",
-
-                      border: "none",
-
-                      padding: "8px 12px",
-
-                      borderRadius: "8px",
-
-                      cursor: "pointer",
-
-                      marginRight: "10px",
-
-                    }}
-
-                  >
-
-                    แก้ไข
-
-                  </button>
-
-                  <button
-
-                    onClick={() => deletePart(part.id)}
-
-                    style={{
-
-                      background: "#dc2626",
-
-                      color: "white",
-
-                      border: "none",
-
-                      padding: "8px 12px",
-
-                      borderRadius: "8px",
-
-                      cursor: "pointer",
-
-                    }}
-
-                  >
-
-                    ลบ
-
-                  </button>
-
-                </td>
-
-              </tr>
-
-            ))}
-
-        </tbody>
+          <button
+            onClick={() => deletePart(part.id)}
+            style={{
+              background: "#dc2626",
+              color: "white",
+              border: "none",
+              padding: "8px 12px",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            ลบ
+          </button>
+        </td>
+      </tr>
+    ))}
+</tbody>
 
       </table>
 

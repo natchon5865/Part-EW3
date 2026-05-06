@@ -66,6 +66,7 @@ function App() {
       location === "" &&
     )
       return;
+  }
 
     if (editId) {
       const updated = parts.map((part: any) =>

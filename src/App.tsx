@@ -59,7 +59,6 @@ function App() {
 
   // เพิ่ม / แก้ไข
   const addPart = () => {
-    if (!id || !name || !qty || !location) return;
 
     if (editId) {
       const updated = parts.map((part: any) =>
@@ -276,7 +275,7 @@ function App() {
           }}
         >
           <input
-            placeholder="รหัส"
+            placeholder="P/N,S/N"
             value={id}
             onChange={(e) => setId(e.target.value)}
             style={inputStyle}
@@ -362,7 +361,7 @@ function App() {
               color: "white",
             }}
           >
-            <th style={{ padding: "14px" }}>รหัส</th>
+            <th style={{ padding: "14px" }}>P/N,S/N</th>
             <th>ชื่ออะไหล่</th>
             <th>จำนวน</th>
             <th>ตำแหน่ง</th>

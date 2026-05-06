@@ -294,7 +294,7 @@ const inputStyle = {
     </select>
 
     <button
-      onClick={addpart}
+      onClick={addPart}
       style={{
         background: "#2563eb",
         color: "white",

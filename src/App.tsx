@@ -374,11 +374,11 @@ function App() {
 <tbody>
   {parts
     .filter((part: any) => {
-      const text = search.toLowerCase();
+      const text = search.toLowerCase().trim();
 
       return (
         part.name.toLowerCase().includes(text) ||
-        part.system.toLowerCase() === text
+        part.system.toLowerCase().includes(text)
       );
     })
     .map((part: any) => (

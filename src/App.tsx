@@ -97,6 +97,7 @@ function App() {
     setLocation("");
     setSystem("ELINT/COMINT");
     setStatus("พร้อมใช้");
+    setSearch("");
   };
 
   // โหลดข้อมูลมาแก้ไข

@@ -242,7 +242,7 @@ function App() {
 
           color: "#111827",
           fontSize : "40px",
-          fontWeigt : "bold",
+          fontWeight : "bold",
 
         }}
 

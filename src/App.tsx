@@ -48,14 +48,15 @@ function App() {
   ).length;
 
   // style
-  const inputStyle = {
-    backgroundColor: "#ffffff",
-    color: "#000000",
-    border: "1px solid #cbd5e1",
-    padding: "10px",
-    borderRadius: "8px",
-    outline: "none",
-  };
+const inputStyle = {
+  backgroundColor: "#ffffff",
+  color: "#000000",
+  border: "2px solid #94a3b8",
+  padding: "10px",
+  borderRadius: "8px",
+  outline: "none",
+  fontWeight: "600",
+};
 
   // เพิ่มข้อมูล
   const addPart = () => {
@@ -232,98 +233,89 @@ function App() {
         />
       </div>
 
-      {/* form */}
-      <div
-        style={{
-          background: "white",
-          padding: "20px",
-          borderRadius: "12px",
-          marginBottom: "20px",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            color: "#111827",
-          }}
-        >
-          ➕ เพิ่มอะไหล่
-        </h2>
+      {/* ฟอร์ม */}
+<div
+  style={{
+    background: "white",
+    padding: "20px",
+    borderRadius: "12px",
+    marginBottom: "20px",
+    overflowX: "auto",
+  }}
+>
+  <h2
+    style={{
+      textAlign: "center",
+      marginBottom: "20px",
+      color: "#000000",
+      fontWeight: "700",
+    }}
+  >
+    ➕ เพิ่มอะไหล่
+  </h2>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            placeholder="P/N,S/N"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            style={inputStyle}
-          />
+  <div
+    style={{
+      display: "flex",
+      gap: "10px",
+      flexWrap: "nowrap",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <input
+      type="text"
+      placeholder="P/N,S/N"
+      style={inputStyle}
+    />
 
-          <input
-            placeholder="ชื่ออะไหล่"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={inputStyle}
-          />
+    <input
+      type="text"
+      placeholder="ชื่ออะไหล่"
+      style={inputStyle}
+    />
 
-          <input
-            placeholder="จำนวน"
-            value={qty}
-            onChange={(e) => setQty(e.target.value)}
-            style={inputStyle}
-          />
+    <input
+      type="number"
+      placeholder="จำนวน"
+      style={inputStyle}
+    />
 
-          <input
-            placeholder="ตำแหน่ง"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            style={inputStyle}
-          />
+    <input
+      type="text"
+      placeholder="ตำแหน่ง"
+      style={inputStyle}
+    />
 
-          <select
-            value={system}
-            onChange={(e) => setSystem(e.target.value)}
-            style={inputStyle}
-          >
-            <option>ELINT/COMINT</option>
-            <option>PRAKARN</option>
-            <option>Perimaster</option>
-            <option>EW3</option>
-            <option>Red Sky II</option>
-          </select>
+    <select style={inputStyle}>
+      <option>ELINT/COMINT</option>
+      <option>Perimaster</option>
+      <option>Red Sky II</option>
+      <option>EW3</option>
+      <option>PRAKARN</option>
+    </select>
 
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            style={inputStyle}
-          >
-            <option>พร้อมใช้</option>
-            <option>ใกล้หมด</option>
-            <option>หมด</option>
-          </select>
+    <select style={inputStyle}>
+      <option>พร้อมใช้</option>
+      <option>ใกล้หมด</option>
+      <option>หมด</option>
+    </select>
 
-          <button
-            onClick={addPart}
-            style={{
-              background: "#2563eb",
-              color: "white",
-              border: "none",
-              padding: "10px 16px",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            เพิ่ม
-          </button>
-        </div>
-      </div>
-
+    <button
+      style={{
+        background: "#2563eb",
+        color: "white",
+        border: "none",
+        padding: "10px 16px",
+        borderRadius: "8px",
+        cursor: "pointer",
+        fontWeight: "700",
+      }}
+    >
+      เพิ่ม
+    </button>
+  </div>
+</div>
       {/* table */}
       <table
         style={{

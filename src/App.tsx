@@ -43,7 +43,7 @@ function App() {
       setParts([...parts, newPart]);
     }
 
-    // reset ช่องกรอก
+    // reset
     setId("");
     setName("");
     setQty("");
@@ -84,16 +84,19 @@ function App() {
   const total = parts.length;
   const low = parts.filter((p) => p.qty > 0 && p.qty <= 5).length;
   const empty = parts.filter((p) => p.qty === 0).length;
+  const ready = parts.filter((p) => p.status === "พร้อมใช้").length;
 
   const inputStyle = {
-    padding: "10px",
-    borderRadius: "8px",
+    padding: "12px",
+    borderRadius: "10px",
     border: "2px solid #cbd5e1",
-    fontSize: "16px",
+    fontSize: "15px",
     fontWeight: "600",
     color: "#111827",
     backgroundColor: "#ffffff",
     outline: "none",
+    width: "100%",
+    boxSizing: "border-box" as const,
   };
 
   return (
@@ -102,7 +105,7 @@ function App() {
         background: "#f1f5f9",
         minHeight: "100vh",
         padding: "30px",
-        fontFamily: "sans-serif",
+        fontFamily: "'Segoe UI', 'Prompt', sans-serif",
         color: "#111827",
       }}
     >
@@ -110,62 +113,115 @@ function App() {
       <h1
         style={{
           textAlign: "center",
-          fontSize: "42px",
+          fontSize: "44px",
           marginBottom: "25px",
-          color: "#111827",
+          fontWeight: "700",
         }}
       >
         📦 ระบบจัดเก็บอะไหล่ห้องซ่อม
       </h1>
 
-      {/* การ์ด */}
+      {/* กล่องสรุป */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr",
           gap: "20px",
-          marginBottom: "25px",
+          marginBottom: "30px",
         }}
       >
         <div
           style={{
             background: "white",
+            borderRadius: "16px",
             padding: "20px",
-            borderRadius: "14px",
             textAlign: "center",
           }}
         >
           <h3>📦 อะไหล่ทั้งหมด</h3>
-          <h1>{total}</h1>
+
+          <h1
+            style={{
+              fontSize: "58px",
+              color: "#111827",
+              marginTop: "10px",
+            }}
+          >
+            {total}
+          </h1>
         </div>
 
         <div
           style={{
             background: "white",
+            borderRadius: "16px",
             padding: "20px",
-            borderRadius: "14px",
             textAlign: "center",
           }}
         >
           <h3>🟠 ใกล้หมด</h3>
-          <h1>{low}</h1>
+
+          <h1
+            style={{
+              fontSize: "58px",
+              color: "#f59e0b",
+              marginTop: "10px",
+            }}
+          >
+            {low}
+          </h1>
         </div>
 
         <div
           style={{
             background: "white",
+            borderRadius: "16px",
             padding: "20px",
-            borderRadius: "14px",
             textAlign: "center",
           }}
         >
           <h3>🔴 หมด</h3>
-          <h1>{empty}</h1>
+
+          <h1
+            style={{
+              fontSize: "58px",
+              color: "#dc2626",
+              marginTop: "10px",
+            }}
+          >
+            {empty}
+          </h1>
+        </div>
+
+        <div
+          style={{
+            background: "white",
+            borderRadius: "16px",
+            padding: "20px",
+            textAlign: "center",
+          }}
+        >
+          <h3>🟢 พร้อมใช้</h3>
+
+          <h1
+            style={{
+              fontSize: "58px",
+              color: "#16a34a",
+              marginTop: "10px",
+            }}
+          >
+            {ready}
+          </h1>
         </div>
       </div>
 
       {/* ค้นหา */}
-      <div style={{ textAlign: "center", marginBottom: "25px" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "25px",
+        }}
+      >
         <input
           type="text"
           placeholder="🔍 ค้นหาชื่ออะไหล่ หรือ ระบบ..."
@@ -173,7 +229,7 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
           style={{
             ...inputStyle,
-            width: "400px",
+            width: "420px",
           }}
         />
       </div>
@@ -182,15 +238,16 @@ function App() {
       <div
         style={{
           background: "white",
-          padding: "20px",
-          borderRadius: "16px",
-          marginBottom: "25px",
+          borderRadius: "18px",
+          padding: "25px",
+          marginBottom: "30px",
         }}
       >
         <h2
           style={{
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "25px",
+            fontSize: "34px",
           }}
         >
           ➕ เพิ่มอะไหล่
@@ -199,8 +256,9 @@ function App() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr auto",
-            gap: "10px",
+            gridTemplateColumns:
+              "120px 160px 100px 150px 180px 130px 90px",
+            gap: "12px",
             alignItems: "center",
           }}
         >
@@ -260,10 +318,10 @@ function App() {
               background: "#2563eb",
               color: "white",
               border: "none",
-              padding: "12px 18px",
               borderRadius: "10px",
-              cursor: "pointer",
+              padding: "12px",
               fontWeight: "700",
+              cursor: "pointer",
             }}
           >
             {editId ? "บันทึก" : "เพิ่ม"}
@@ -275,7 +333,7 @@ function App() {
       <div
         style={{
           background: "white",
-          borderRadius: "16px",
+          borderRadius: "18px",
           overflow: "hidden",
         }}
       >
@@ -292,7 +350,7 @@ function App() {
             }}
           >
             <tr>
-              <th style={{ padding: "14px" }}>P/N,S/N</th>
+              <th style={{ padding: "16px" }}>P/N,S/N</th>
               <th>ชื่ออะไหล่</th>
               <th>จำนวน</th>
               <th>ตำแหน่ง</th>
@@ -309,23 +367,28 @@ function App() {
                 style={{
                   textAlign: "center",
                   borderBottom: "1px solid #e2e8f0",
-                  color: "#111827",
                   fontWeight: "600",
+                  color: "#111827",
                 }}
               >
-                <td style={{ padding: "12px" }}>{part.id}</td>
+                <td style={{ padding: "14px" }}>{part.id}</td>
+
                 <td>{part.name}</td>
+
                 <td>{part.qty}</td>
+
                 <td>{part.location}</td>
+
                 <td>{part.system}</td>
 
                 <td>
                   <span
                     style={{
-                      padding: "6px 12px",
+                      padding: "6px 14px",
                       borderRadius: "999px",
                       color: "white",
                       fontSize: "14px",
+                      fontWeight: "700",
                       background:
                         part.status === "พร้อมใช้"
                           ? "#16a34a"
@@ -357,24 +420,43 @@ function App() {
                   <button
                     onClick={() => deletePart(part.id)}
                     style={{
+
                       background: "#dc2626",
+
                       color: "white",
+
                       border: "none",
+
                       padding: "8px 12px",
+
                       borderRadius: "8px",
+
                       cursor: "pointer",
+
                     }}
+
                   >
+
                     ลบ
+
                   </button>
+
                 </td>
+
               </tr>
+
             ))}
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
+
   );
+
 }
 
 export default App;

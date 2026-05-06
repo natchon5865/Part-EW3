@@ -51,11 +51,13 @@ function App() {
 const inputStyle = {
   backgroundColor: "#ffffff",
   color: "#000000",
-  border: "2px solid #94a3b8",
+  border: "2px solid #64748b",
   padding: "10px",
   borderRadius: "8px",
   outline: "none",
-  fontWeight: "600",
+  fontWeight: "700",
+  fontSize: "14px",
+  width: "140px",
 };
 
   // เพิ่มข้อมูล

@@ -59,7 +59,7 @@ const inputStyle = {
 };
 
   // เพิ่มข้อมูล
-  const addPart = () => {
+  const _addPart = () => {
     if (
       id === "" &&
       name === "" &&

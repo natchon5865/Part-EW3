@@ -102,17 +102,38 @@ function App() {
         margin: "0 auto",
       }}
     >
-      <h1
+      {/* ===== หัวข้อหลัก แก้ให้ชัด ===== */}
+      <div
         style={{
           textAlign: "center",
-          fontSize: isMobile ? "28px" : "46px",
-          marginBottom: "25px",
+          marginBottom: "30px",
         }}
       >
-        📦 ระบบจัดเก็บอะไหล่ห้องซ่อม
-      </h1>
+        <div
+          style={{
+            display: "inline-block",
+            background: "linear-gradient(90deg, #1d4ed8, #2563eb)",
+            padding: isMobile ? "12px 20px" : "18px 40px",
+            borderRadius: "14px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: isMobile ? "28px" : "48px",
+              fontWeight: "900",
+              color: "#ffffff",
+              margin: 0,
+              textShadow: "2px 2px 6px rgba(0,0,0,0.55)",
+              letterSpacing: "1px",
+            }}
+          >
+            📦 ระบบจัดเก็บอะไหล่ห้องซ่อม
+          </h1>
+        </div>
+      </div>
 
-      {/* กล่องสรุป */}
+      {/* ===== กล่องสรุป ===== */}
       <div
         style={{
           display: "grid",
@@ -134,13 +155,15 @@ function App() {
               borderRadius: "18px",
               padding: "20px",
               textAlign: "center",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
             }}
           >
-            <h3>{label}</h3>
+            <h3 style={{ fontSize: "20px", fontWeight: "700" }}>{label}</h3>
             <h1
               style={{
                 fontSize: isMobile ? "32px" : "58px",
                 color: color as string,
+                margin: 0,
               }}
             >
               {value}
@@ -149,7 +172,7 @@ function App() {
         ))}
       </div>
 
-      {/* ค้นหา */}
+      {/* ===== ค้นหา ===== */}
       <div style={{ marginBottom: "25px" }}>
         <input
           type="text"
@@ -160,24 +183,40 @@ function App() {
         />
       </div>
 
-      {/* ฟอร์ม */}
+      {/* ===== ฟอร์มเพิ่มอะไหล่ ===== */}
       <div
         style={{
           background: "white",
           borderRadius: "18px",
           padding: "25px",
           marginBottom: "30px",
+          boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
         }}
       >
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "25px",
-            fontSize: isMobile ? "24px" : "34px",
-          }}
-        >
-          ➕ เพิ่มอะไหล่
-        </h2>
+        <div style={{ textAlign: "center", marginBottom: "25px" }}>
+          <div
+            style={{
+              fontSize: isMobile ? "42px" : "56px",
+              color: "#4f46e5",
+              fontWeight: "900",
+              lineHeight: "1",
+            }}
+          >
+            ＋
+          </div>
+
+          <h2
+            style={{
+              fontSize: isMobile ? "28px" : "38px",
+              fontWeight: "900",
+              color: "#4338ca",
+              margin: "10px 0 0 0",
+              textShadow: "1px 1px 4px rgba(0,0,0,0.15)",
+            }}
+          >
+            เพิ่มอะไหล่
+          </h2>
+        </div>
 
         <div
           style={{
@@ -241,7 +280,8 @@ function App() {
               border: "none",
               borderRadius: "10px",
               padding: "12px",
-              fontWeight: "700",
+              fontWeight: "800",
+              fontSize: "16px",
               cursor: "pointer",
               width: "100%",
             }}
@@ -251,12 +291,13 @@ function App() {
         </div>
       </div>
 
-      {/* ตาราง */}
+      {/* ===== ตาราง ===== */}
       <div
         style={{
           background: "white",
           borderRadius: "18px",
           overflowX: "auto",
+          boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
         }}
       >
         <table
@@ -325,35 +366,65 @@ function App() {
                       color: "white",
                       border: "none",
                       padding: "8px 12px",
+
                       borderRadius: "8px",
+
                       marginRight: "8px",
+
                       cursor: "pointer",
+
                     }}
+
                   >
+
                     แก้ไข
+
                   </button>
 
                   <button
+
                     onClick={() => deletePart(index)}
+
                     style={{
+
                       background: "#dc2626",
+
                       color: "white",
+
                       border: "none",
+
                       padding: "8px 12px",
+
                       borderRadius: "8px",
+
                       cursor: "pointer",
+
                     }}
+
                   >
+
                     ลบ
+
                   </button>
+
                 </td>
+
               </tr>
+
             ))}
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
+
   );
+
 }
 
 export default App;
+
+                      

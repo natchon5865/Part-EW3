@@ -15,11 +15,12 @@ function App() {
   const [status, setStatus] = useState("พร้อมใช้");
   const [editIndex, setEditIndex] = useState<number | null>(null);
 
+  const isMobile = window.innerWidth <= 768;
+
   useEffect(() => {
     localStorage.setItem("parts", JSON.stringify(parts));
   }, [parts]);
 
-  // เพิ่ม / แก้ไข
   const addPart = () => {
     const newPart = {
       id,
@@ -39,7 +40,6 @@ function App() {
       setParts([...parts, newPart]);
     }
 
-    // reset
     setId("");
     setName("");
     setQty("");
@@ -48,12 +48,10 @@ function App() {
     setStatus("พร้อมใช้");
   };
 
-  // ลบ
   const deletePart = (indexToDelete: number) => {
     setParts(parts.filter((_, index) => index !== indexToDelete));
   };
 
-  // แก้ไข
   const editPart = (part: any, index: number) => {
     setId(part.id);
     setName(part.name);
@@ -61,14 +59,11 @@ function App() {
     setLocation(part.location);
     setSystem(part.system);
     setStatus(part.status);
-
     setEditIndex(index);
   };
 
-  // ค้นหา
   const filteredParts = parts.filter((part) => {
     const text = search.toLowerCase();
-
     return (
       part.id?.toLowerCase().includes(text) ||
       part.name?.toLowerCase().includes(text) ||
@@ -76,7 +71,6 @@ function App() {
     );
   });
 
-  // สรุป
   const total = parts.length;
   const low = parts.filter((p) => p.qty > 0 && p.qty <= 5).length;
   const empty = parts.filter((p) => p.qty === 0).length;
@@ -100,20 +94,19 @@ function App() {
       style={{
         background: "#f1f5f9",
         minHeight: "100vh",
-        padding: "30px",
+        padding: isMobile ? "15px" : "30px",
         fontFamily: "'Segoe UI', 'Prompt', sans-serif",
         color: "#111827",
+        width: "100%",
+        maxWidth: "1400px",
+        margin: "0 auto",
       }}
     >
-      {/* หัวข้อ */}
       <h1
         style={{
           textAlign: "center",
-          fontSize: "46px",
+          fontSize: isMobile ? "28px" : "46px",
           marginBottom: "25px",
-          fontWeight: "700",
-          color: "#111827",
-          textShadow: "0px 1px 1px rgba(0,0,0,0.1)",
         }}
       >
         📦 ระบบจัดเก็บอะไหล่ห้องซ่อม
@@ -123,112 +116,47 @@ function App() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          gap: "20px",
+          gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr 1fr",
+          gap: "15px",
           marginBottom: "30px",
         }}
       >
-        {/* ทั้งหมด */}
-        <div
-          style={{
-            background: "white",
-            borderRadius: "18px",
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          <h3>📦 อะไหล่ทั้งหมด</h3>
-
-          <h1
+        {[
+          ["📦 อะไหล่ทั้งหมด", total, "#111827"],
+          ["🟠 ใกล้หมด", low, "#f59e0b"],
+          ["🔴 หมด", empty, "#dc2626"],
+          ["🟢 พร้อมใช้", ready, "#16a34a"],
+        ].map(([label, value, color], i) => (
+          <div
+            key={i}
             style={{
-              fontSize: "58px",
-              color: "#111827",
+              background: "white",
+              borderRadius: "18px",
+              padding: "20px",
+              textAlign: "center",
             }}
           >
-            {total}
-          </h1>
-        </div>
-
-        {/* ใกล้หมด */}
-        <div
-          style={{
-            background: "white",
-            borderRadius: "18px",
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          <h3>🟠 ใกล้หมด</h3>
-
-          <h1
-            style={{
-              fontSize: "58px",
-              color: "#f59e0b",
-            }}
-          >
-            {low}
-          </h1>
-        </div>
-
-        {/* หมด */}
-        <div
-          style={{
-            background: "white",
-            borderRadius: "18px",
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          <h3>🔴 หมด</h3>
-
-          <h1
-            style={{
-              fontSize: "58px",
-              color: "#dc2626",
-            }}
-          >
-            {empty}
-          </h1>
-        </div>
-
-        {/* พร้อมใช้ */}
-        <div
-          style={{
-            background: "white",
-            borderRadius: "18px",
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          <h3>🟢 พร้อมใช้</h3>
-
-          <h1
-            style={{
-              fontSize: "58px",
-              color: "#16a34a",
-            }}
-          >
-            {ready}
-          </h1>
-        </div>
+            <h3>{label}</h3>
+            <h1
+              style={{
+                fontSize: isMobile ? "32px" : "58px",
+                color: color as string,
+              }}
+            >
+              {value}
+            </h1>
+          </div>
+        ))}
       </div>
 
       {/* ค้นหา */}
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: "25px",
-        }}
-      >
+      <div style={{ marginBottom: "25px" }}>
         <input
           type="text"
           placeholder="🔍 ค้นหาชื่ออะไหล่ หรือ ระบบ..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            ...inputStyle,
-            width: "420px",
-          }}
+          style={inputStyle}
         />
       </div>
 
@@ -245,10 +173,7 @@ function App() {
           style={{
             textAlign: "center",
             marginBottom: "25px",
-            fontSize: "34px",
-            color: "#111827",
-            fontWeight: "700",
-            textShadow: "0px 1px 1px rgba(0,0,0,0.1)",
+            fontSize: isMobile ? "24px" : "34px",
           }}
         >
           ➕ เพิ่มอะไหล่
@@ -257,37 +182,28 @@ function App() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns:
-              "120px 160px 100px 150px 180px 120px 90px",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(7, 1fr)",
             gap: "10px",
-            alignItems: "center",
           }}
         >
-          {/* P/N */}
           <input
             placeholder="P/N,S/N"
             value={id}
             onChange={(e) => setId(e.target.value)}
             style={inputStyle}
           />
-
-          {/* ชื่อ */}
           <input
             placeholder="ชื่ออะไหล่"
             value={name}
             onChange={(e) => setName(e.target.value)}
             style={inputStyle}
           />
-
-          {/* จำนวน */}
           <input
             placeholder="จำนวน"
             value={qty}
             onChange={(e) => setQty(e.target.value)}
             style={inputStyle}
           />
-
-          {/* ตำแหน่ง */}
           <input
             placeholder="ตำแหน่ง"
             value={location}
@@ -295,7 +211,6 @@ function App() {
             style={inputStyle}
           />
 
-          {/* ระบบ */}
           <select
             value={system}
             onChange={(e) => setSystem(e.target.value)}
@@ -308,7 +223,6 @@ function App() {
             <option>Red Sky II</option>
           </select>
 
-          {/* สถานะ */}
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -319,7 +233,6 @@ function App() {
             <option>หมด</option>
           </select>
 
-          {/* ปุ่ม */}
           <button
             onClick={addPart}
             style={{
@@ -330,6 +243,7 @@ function App() {
               padding: "12px",
               fontWeight: "700",
               cursor: "pointer",
+              width: "100%",
             }}
           >
             {editIndex !== null ? "บันทึก" : "เพิ่ม"}
@@ -342,12 +256,13 @@ function App() {
         style={{
           background: "white",
           borderRadius: "18px",
-          overflow: "hidden",
+          overflowX: "auto",
         }}
       >
         <table
           style={{
             width: "100%",
+            minWidth: "900px",
             borderCollapse: "collapse",
           }}
         >
@@ -375,18 +290,12 @@ function App() {
                 style={{
                   textAlign: "center",
                   borderBottom: "1px solid #e2e8f0",
-                  color: "#111827",
-                  fontWeight: "600",
                 }}
               >
                 <td style={{ padding: "14px" }}>{part.id}</td>
-
                 <td>{part.name}</td>
-
                 <td>{part.qty}</td>
-
                 <td>{part.location}</td>
-
                 <td>{part.system}</td>
 
                 <td>
@@ -395,7 +304,6 @@ function App() {
                       padding: "6px 14px",
                       borderRadius: "999px",
                       color: "white",
-                      fontSize: "14px",
                       fontWeight: "700",
                       background:
                         part.status === "พร้อมใช้"
@@ -410,77 +318,42 @@ function App() {
                 </td>
 
                 <td>
-
                   <button
-
                     onClick={() => editPart(part, index)}
-
                     style={{
-
                       background: "#2563eb",
-
                       color: "white",
-
                       border: "none",
-
                       padding: "8px 12px",
-
                       borderRadius: "8px",
-
                       marginRight: "8px",
-
                       cursor: "pointer",
-
                     }}
-
                   >
-
                     แก้ไข
-
                   </button>
 
                   <button
-
                     onClick={() => deletePart(index)}
-
                     style={{
-
                       background: "#dc2626",
-
                       color: "white",
-
                       border: "none",
-
                       padding: "8px 12px",
-
                       borderRadius: "8px",
-
                       cursor: "pointer",
-
                     }}
-
                   >
-
                     ลบ
-
                   </button>
-
                 </td>
-
               </tr>
-
             ))}
-
           </tbody>
-
         </table>
-
       </div>
-
     </div>
-
   );
-
 }
 
 export default App;

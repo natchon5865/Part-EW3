@@ -23,8 +23,8 @@ function App() {
   const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "parts"), (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
+    const unsubscribe = onSnapshot(collection(db, "parts"), (snapshot: any) => {
+      const data = snapshot.docs.map((doc: any) => ({
         firebaseId: doc.id,
         ...doc.data(),
       }));

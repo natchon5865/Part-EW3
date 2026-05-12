@@ -73,14 +73,17 @@ function App() {
     setEditId(part.firebaseId);
   };
 
-  const filteredParts = parts.filter((part) => {
-    const text = search.toLowerCase();
-    return (
-      part.id?.toLowerCase().includes(text) ||
-      part.name?.toLowerCase().includes(text) ||
-      part.system?.toLowerCase().includes(text)
-    );
-  });
+const filteredParts = parts.filter((part) => {
+  const text = search.toLowerCase();
+  return (
+    part.id?.toLowerCase().includes(text) ||
+    part.name?.toLowerCase().includes(text) ||
+    part.system?.toLowerCase().includes(text) ||
+    part.location?.toLowerCase().includes(text) ||
+    part.status?.toLowerCase().includes(text) ||
+    part.qty?.toString().includes(text)
+  );
+});
 
   const total = parts.length;
   const good = parts.filter((p) => p.status === "ดี").length;
